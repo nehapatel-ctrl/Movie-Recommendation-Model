@@ -56,10 +56,10 @@ const MyCard = ({ index, Name, Description,Code,Credits, image }) => {
               {Name}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {Code}
+              Course code: {Code}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {Credits}
+              Credits: {Credits}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               {Description}

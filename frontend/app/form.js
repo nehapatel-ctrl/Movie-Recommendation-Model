@@ -12,7 +12,7 @@ import { Grid } from '@material-ui/core';
 
 const DialogForm = ({ open, handleClose,values}) => {
   const [name, setName] = useState('');
-
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log('Form submitted:', { name });
