@@ -27,7 +27,7 @@ const DialogForm = ({ open, handleClose,values}) => {
       <DialogContent>
         
         <form onSubmit={handleSubmit}>
-        <Grid container spacing={3}>
+        <Grid container spacing={4} style={{marginTop:'10px'}}>
                         <Grid item xs={12} >
                             <TextField 
                             label="Full Name*" 
