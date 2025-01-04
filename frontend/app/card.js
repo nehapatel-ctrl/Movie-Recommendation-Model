@@ -26,14 +26,8 @@ const MyCard = ({ index, Name, Description,Code,Credits, image }) => {
     setOpen(false);
   };
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
+  
+  const handleChange = (e) => { const { name, value } = e.target; setFormData({ ...formData, [name]: value, }); };
   const handleSubmit = (event) => {
     event.preventDefault();
     // Handle form submission logic here

@@ -10,7 +10,7 @@ import { Grid } from '@material-ui/core';
 
 
 
-const DialogForm = ({ open, handleClose,values}) => {
+const DialogForm = ({ open, handleClose}) => {
   const [name, setName] = useState('');
   
   const handleSubmit = (event) => {
@@ -19,6 +19,13 @@ const DialogForm = ({ open, handleClose,values}) => {
     handleClose();
   };
    
+  const [values, setValues] = useState({ 
+    name: '', 
+    Code: '', 
+    Credits: '',
+    Description: '',
+    Imageurl: '',
+  }); 
   const handleChange = (e) => { const { name, value } = e.target; setValues({ ...values, [name]: value, }); };
 
   return (
