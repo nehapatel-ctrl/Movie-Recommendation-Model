@@ -7,8 +7,7 @@ app.use(express.json())
 app.get('/',
     (req, res) => {
         res.send(
-            `<h1 style="color: green;">
-            Hello Gfg!</h1>`
+            `backend is running!`
         );
     });
 
