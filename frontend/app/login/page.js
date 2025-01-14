@@ -5,12 +5,12 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import { useState } from "react";
+import Link from "next/link";
 export default function Login(){
     
        
         const images = [
           "url('https://images6.alphacoders.com/480/480421.jpg')",
-          "url('https://miro.medium.com/v2/resize:fit:1200/1*WWTBjFs6gqqsXGAsfg9nsQ.jpeg')",
           "url('https://www.thebalancemoney.com/thmb/cfLSIpcpwiluW-kJDTu16bXNhjo=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/school-books-on-desk--education-concept-871454068-5b548900c9e77c005b04fc8c.jpg')",
         ];
         const [currentImage, setCurrentImage] = useState(0);
@@ -28,17 +28,26 @@ export default function Login(){
                 <Grid container spacing={6}>
                    <Grid  item xs={12}>
                     <TextField 
-                     label="Username*"
+                     label="Username"
+                     id="username"
+                     name="username"
+                     autoComplete="username"
+                     required
                      variant="outlined"
                      fullWidth
                      color="white"
+                     autoFocus
                     />
                    </Grid>
                    <Grid item xs={12}>
                     <TextField 
-                     label="Password*" 
+                     label="Password" 
+                     name="password"
+                     id="password"
+                     autoComplete="current-password"
                      variant="outlined"
                      fullWidth
+                     required
                      type="password"
                     />
                    </Grid>

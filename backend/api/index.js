@@ -8,7 +8,7 @@ const cors = require("cors");
 let dotenv = require("dotenv").config({path:'../.env'});
 console.log(dotenv);
 
-
+const authRoutes = require('./routes/authroutes');
 const coursesRoutes = require("./routes/courseroute");
 
 app.use(cors());
@@ -18,6 +18,8 @@ const PORT = process.env.NEXT_PUBLIC_PORT;
 
 //routes
 app.use("/courses", coursesRoutes);
+app.use("/auth", authRoutes);
+
 
 app.get("/", (req, res) => res.send("Backend is running!"));
 

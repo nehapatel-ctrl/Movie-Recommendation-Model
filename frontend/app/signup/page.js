@@ -24,33 +24,42 @@ export default function Login(){
         <div className="boxx" style={{width:'100%',height:'735px',border:'1px solid black',display:'grid',placeItems:'center',backgroundImage: images[currentImage],color:'white'}} onClick={changeBackground}>
         
         <div className="box" style={{zIndex:"1000",border:'1px solid black',width:'450px',height:'500px',display:'grid',placeItems:'center',backgroundColor:'white'}} onClick={(e) => e.stopPropagation()}>
-            <h1 style={{marginBottom:'20px',display:'flex',justifyContent:'center',marginTop:'40px',color:'black'}}>Login</h1>
+            <h1 style={{marginBottom:'20px',display:'flex',justifyContent:'center',marginTop:'40px',color:'black'}}>Sign Up</h1>
             <form style={{width:'400px',height:'500px',color:'black'}}>
                 <Grid container spacing={5}>
                    <Grid  item xs={12}>
                     <TextField 
-                     label="Username*"
+                     label="Username"
                      variant="outlined"
+                     required
                      fullWidth
                      color="white"
+                     id="username"
+                     name="username"
+                     autoComplete="username"
+                     autoFocus
                     />
                    </Grid>
                    <Grid item xs={12}>
                     <TextField 
-                     label="Password*" 
+                     label="Password" 
                      variant="outlined"
                      fullWidth
                      type="password"
+                     required
+                     id="password"
+                     autoComplete="current-password"
+                     name="password"
                     />
                    </Grid>
                 </Grid>
                 <FormControlLabel  control={<Checkbox />} label="Remember me" style={{marginLeft:'2px'}}/>
-                <Button type="submit" style={{marginTop:'90px',backgroundColor:' #4F86F7',color:'white'}}>Login</Button>
+                <Button type="submit" style={{marginTop:'90px',backgroundColor:' #4F86F7',color:'white'}}>Sign up</Button>
             <Grid container style={{marginTop:'20px'}}>
               <Grid item xs >
                 
                 <Link href="/login" variant="body2" style={{color:' #4F86F7',marginTop:'-2',textDecoration: 'none'}}>
-                Already have an account? Sign In
+                 {"Already have an account? Sign In"}
                 </Link>
                 
               </Grid>
