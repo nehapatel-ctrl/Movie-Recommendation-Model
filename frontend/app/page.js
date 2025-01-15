@@ -41,19 +41,6 @@ export default function Home() {
   const handleAddCourseSuccess = (newCourse) => {
     setCourses([...courses, newCourse]);
   };
-  useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const response = await axios.get("https://course-helper-two.vercel.app/courses");
-        setCourses(response.data);
-      } catch (error) {
-        console.error("Error fetching courses:", error);
-        alert("Failed to fetch courses. Please try again.");
-      }
-    };
-
-    fetchCourses();
-  }, []);
   
   
     
