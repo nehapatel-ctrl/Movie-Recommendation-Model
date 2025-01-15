@@ -1,4 +1,4 @@
-// src/DialogForm.js
+'use client'
 import React, { useState } from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -10,46 +10,8 @@ import { Grid } from '@material-ui/core';
 
 
 
-const DialogForm = ({ open, handleClose}) => {
-  const [name, setName] = useState('');
+const Viewcard = ({ open,course,onUpdate,onDelete,handleClose }) => {
   
- 
-  const handleSubmit = async () => {
-    try {
-      const token = localStorage.getItem("jwtToken");
-      console.log("Token:", token);
-      console.log("Course Details:", values);
-
-      const response = await axios.post(
-        "https://course-helper-two.vercel.app/courses",
-        courseDetails,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      alert("Course added successfully");
-      console.log("Course added:", response.data);
-      onSuccess(response.data);
-      onClose();
-    } catch (error) {
-      alert("Failed to add course.\nLogin if you haven't already.");
-      if (error.response) {
-       
-        console.error("Error adding course:", error.response.data);
-      } else if (error.request) {
-        
-        console.error("Error adding course: No response received", error.request);
-      } else {
-        
-        console.error("Error adding course:", error.message);
-      }
-    }
-  };
-
-  
-   
   const [values, setValues] = useState({ 
     name: '', 
     Code: '', 
@@ -57,7 +19,62 @@ const DialogForm = ({ open, handleClose}) => {
     Description: '',
     Imageurl: '',
   }); 
+  useEffect(() => {
+    if (course) {
+      setCourseDetails({
+        name: course.name,
+        code: course.code,
+        Credits: course.Credits,
+        Description: course.Description,
+        Imageurl: course.Imageurl,
+      });
+    }
+  }, [course]);
   const handleChange = (e) => { const { name, value } = e.target; setValues({ ...values, [name]: value, }); };
+ 
+  const handleUpdate = async () => {
+    try {
+      const token = localStorage.getItem("jwtToken");
+      const response = await axios.put(
+        `https://course-helper-two.vercel.app/courses/${course.id}`,
+        courseDetails,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      alert("Course updated successfully");
+      console.log("Course updated:", response.data);
+      onUpdate(course.id, response.data);
+      onClose();
+    } catch (error) {
+      alert("Failed to update course.\nLogin if you haven't already.");
+      console.error("Error updating course:", error.response ? error.response.data : error.message);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      const token = localStorage.getItem("jwtToken");
+      await axios.delete(`https://course-helper-two.vercel.app/courses/${course.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      alert("Course deleted successfully");
+      console.log("Course deleted");
+      onDelete(course.id);
+      onClose();
+    } catch (error) {
+      alert("Failed to delete course.\nLogin if you haven't already.");
+      console.error("Error deleting course:", error.response ? error.response.data : error.message);
+    }
+  };
+
+  
+   
+  
 
   return (
     <Dialog open={open} onClose={handleClose}>
@@ -121,8 +138,8 @@ const DialogForm = ({ open, handleClose}) => {
            
                    </Grid>
           <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button type="submit" onClick={handleSubmit}>Submit</Button>
+            <Button onClick={handleUpdate} color="primary" variant="contained">Update</Button>
+            <Button  onClick={handleDelete} color="secondary" variant="contained" >Delete</Button>
           </DialogActions>
         </form>
       </DialogContent>
@@ -130,4 +147,4 @@ const DialogForm = ({ open, handleClose}) => {
   );
 };
 
-export default DialogForm;
+export default Viewcard;
