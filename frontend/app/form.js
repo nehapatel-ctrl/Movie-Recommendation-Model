@@ -13,11 +13,42 @@ import { Grid } from '@material-ui/core';
 const DialogForm = ({ open, handleClose}) => {
   const [name, setName] = useState('');
   
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log('Form submitted:', { name });
-    handleClose();
+ 
+  const handleSubmit = async () => {
+    try {
+      const token = localStorage.getItem("jwtToken");
+      console.log("Token:", token);
+      console.log("Course Details:", values);
+
+      const response = await axios.post(
+        "https://course-helper-two.vercel.app/courses",
+        courseDetails,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      alert("Course added successfully");
+      console.log("Course added:", response.data);
+      onSuccess(response.data);
+      onClose();
+    } catch (error) {
+      alert("Failed to add course.\nLogin if you haven't already.");
+      if (error.response) {
+       
+        console.error("Error adding course:", error.response.data);
+      } else if (error.request) {
+        
+        console.error("Error adding course: No response received", error.request);
+      } else {
+        
+        console.error("Error adding course:", error.message);
+      }
+    }
   };
+
+  
    
   const [values, setValues] = useState({ 
     name: '', 
@@ -67,9 +98,11 @@ const DialogForm = ({ open, handleClose}) => {
                             label="Description" 
                             variant="outlined"
                              fullWidth
-                              name="Description" 
-                             value={values.Description} 
-                             onChange={handleChange} />
+                             multiline
+                             rows={3}
+                            name="Description" 
+                            value={values.Description} 
+                            onChange={handleChange} />
                         </Grid>
                         <Grid item xs={12} >
                             <TextField 
@@ -84,7 +117,7 @@ const DialogForm = ({ open, handleClose}) => {
                    </Grid>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button type="submit">Submit</Button>
+            <Button type="submit" onClick={handleSubmit}>Submit</Button>
           </DialogActions>
         </form>
       </DialogContent>

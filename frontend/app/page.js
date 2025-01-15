@@ -21,13 +21,7 @@ export default function Home() {
     setOpen(false);
   };
   
-  const [values, setValues] = useState({ 
-    name: '', 
-    Code: '', 
-    Credits: '',
-    Description: '',
-    Imageurl: '',
-  }); 
+  
   
   
     const cards = [ 
