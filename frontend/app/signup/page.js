@@ -9,7 +9,7 @@ import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-export default function Login(){
+export default function SignUp(){
     
        
         const images = [
@@ -21,7 +21,7 @@ export default function Login(){
         const changeBackground = () => {
           setCurrentImage((prevImage) => (prevImage + 1) % images.length);
         };
-        const router = useRouter();
+       /* const router = useRouter();
 
         const handleSubmit = async (event) => {
           event.preventDefault();
@@ -34,7 +34,7 @@ export default function Login(){
       
           try {
             // Call the signup API
-            const response = await axios.post("https://course-helper-two.vercel.app/auth/register", userDetails);
+            const response = await axios.post("https://localhost:5000/auth/register");
       
             if (response.status === 201) {
               alert("Signup successful! Redirecting to login...");
@@ -44,7 +44,7 @@ export default function Login(){
             console.error("Error during signup:", error.response?.data || error.message);
             alert("Signup failed. Please try again.");
           }
-        };
+        };*/
 
     return(
         <div className="boxx" style={{width:'100%',height:'735px',border:'1px solid black',display:'grid',placeItems:'center',backgroundImage: images[currentImage],color:'white'}} onClick={changeBackground}>

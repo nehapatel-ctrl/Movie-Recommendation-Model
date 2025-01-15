@@ -21,7 +21,7 @@ const DialogForm = ({ open, handleClose}) => {
       console.log("Course Details:", values);
 
       const response = await axios.post(
-        "https://course-helper-two.vercel.app/courses",
+        "https://localhost:5000/courses",
         courseDetails,
         {
           headers: {

@@ -11,7 +11,10 @@ import { Grid } from "@material-ui/core";
 import Viewcard from "./viewcard";
 import axios from "axios";
 
+
+
 export default function Home() {
+  
   const [courses, setCourses] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [open, setOpen] = React.useState(false);
@@ -41,6 +44,8 @@ export default function Home() {
   const handleAddCourseSuccess = (newCourse) => {
     setCourses([...courses, newCourse]);
   };
+
+ 
   
   
     

@@ -6,6 +6,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 export default function Login(){
     
        
@@ -16,6 +17,34 @@ export default function Login(){
         const [currentImage, setCurrentImage] = useState(0);
         const changeBackground = () => {
           setCurrentImage((prevImage) => (prevImage + 1) % images.length);
+        };
+        const router = useRouter();
+
+        const handleSubmit = async (event) => {
+          event.preventDefault();
+          const data = new FormData(event.currentTarget);
+      
+          const userDetails = {
+            username: data.get("username"),
+            password: data.get("password"),
+          };
+      
+          try {
+            // Make an API call to the login endpoint
+            const response = await axios.post("https://localhost:5000/auth/login", loginDetails);
+      
+            if (response.status === 200) {
+              const { token } = response.data;
+              // Save JWT token to localStorage
+              localStorage.setItem("jwtToken", token);
+      
+              alert("Login successful! Redirecting...");
+              router.push("/"); // Redirect to homepage
+            }
+          } catch (error) {
+            console.error("Error during login:", error.response?.data || error.message);
+            alert("Login failed. Please check your credentials and try again.");
+          }
         };
     
 
