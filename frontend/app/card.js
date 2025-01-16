@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import CardActionArea from '@mui/material/CardActionArea';
 
 
-const MyCard = ({ course,onClick) => {
+const MyCard = ({ course,onClick}) => {
 
   return (
     <>
