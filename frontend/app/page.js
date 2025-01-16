@@ -47,7 +47,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchCourses =  () => {
-      try {
+      try {s
         const response = axios.get('http://localhost:5000/courses');
         setCourses(response.data);
       } catch (error) {
@@ -59,10 +59,6 @@ export default function Home() {
     fetchCourses();
   }, []);
  
-  
-  
-    
-
     return (
     <>
        <Nav />
