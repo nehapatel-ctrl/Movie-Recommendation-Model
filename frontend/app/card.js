@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import CardActionArea from '@mui/material/CardActionArea';
 
 
-const MyCard = ({ course,onClick}) => {
+const MyCard = ({course,onClick}) => {
 
   return (
     <>
@@ -21,16 +21,16 @@ const MyCard = ({ course,onClick}) => {
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              {Course.Name}
+              {course.Name}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {Course.Code}
+              {course.Code}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {Course.Credits}
+              {course.Credits}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {Course.Description}
+              {course.Description}
             </Typography>
           </CardContent>
 

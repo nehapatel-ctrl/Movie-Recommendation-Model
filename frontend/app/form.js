@@ -10,10 +10,8 @@ import { Grid } from '@material-ui/core';
 
 
 
-const DialogForm = ({ open, handleClose}) => {
-  const [name, setName] = useState('');
-  
- 
+const DialogForm = ({ open, handleClose,onSuccess}) => {
+   
   const handleSubmit = async () => {
     try {
       const token = localStorage.getItem("jwtToken");
@@ -22,7 +20,7 @@ const DialogForm = ({ open, handleClose}) => {
 
       const response = await axios.post(
         "https://localhost:5000/courses",
-        courseDetails,
+        values,
         {
           headers: {
             Authorization: `Bearer ${token}`,

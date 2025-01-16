@@ -21,7 +21,7 @@ export default function SignUp(){
         const changeBackground = () => {
           setCurrentImage((prevImage) => (prevImage + 1) % images.length);
         };
-       /* const router = useRouter();
+       const router = useRouter();
 
         const handleSubmit = async (event) => {
           event.preventDefault();
@@ -36,7 +36,7 @@ export default function SignUp(){
             // Call the signup API
             const response = await axios.post("https://localhost:5000/auth/register");
       
-            if (response.status === 201) {
+            if (response) {
               alert("Signup successful! Redirecting to login...");
               router.push("/login"); // Redirect to login page
             }
@@ -44,7 +44,7 @@ export default function SignUp(){
             console.error("Error during signup:", error.response?.data || error.message);
             alert("Signup failed. Please try again.");
           }
-        };*/
+        };
 
     return(
         <div className="boxx" style={{width:'100%',height:'735px',border:'1px solid black',display:'grid',placeItems:'center',backgroundImage: images[currentImage],color:'white'}} onClick={changeBackground}>
@@ -55,23 +55,32 @@ export default function SignUp(){
                 <Grid container spacing={5}>
                    <Grid  item xs={12}>
                     <TextField 
-                     label="Username*"
+                     label="Username"
                      variant="outlined"
                      fullWidth
+                     required
                      color="white"
+                     id="username"
+                     name="username"
+                     autoComplete="username"
+                     autoFocus
                     />
                    </Grid>
                    <Grid item xs={12}>
                     <TextField 
-                     label="Password*" 
+                     label="Password" 
                      variant="outlined"
                      fullWidth
+                     required
                      type="password"
+                     id="password"
+                     autoComplete="current-password"
+                     name="password"
                     />
                    </Grid>
                 </Grid>
                 <FormControlLabel  control={<Checkbox />} label="Remember me" style={{marginLeft:'2px'}}/>
-                <Button type="submit" style={{marginTop:'90px',backgroundColor:' #4F86F7',color:'white'}}>Sign Up</Button>
+                <Button type="submit"  variant="contained"style={{marginTop:'90px',backgroundColor:' #4F86F7',color:'white'}}>Sign Up</Button>
             <Grid container style={{marginTop:'20px'}}>
               <Grid item xs >
                 

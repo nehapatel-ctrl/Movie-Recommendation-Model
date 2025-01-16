@@ -21,7 +21,7 @@ const Viewcard = ({ open,course,onUpdate,onDelete,handleClose }) => {
   }); 
   useEffect(() => {
     if (course) {
-      setCourseDetails({
+      setValues({
         name: course.name,
         code: course.code,
         Credits: course.Credits,
@@ -36,7 +36,7 @@ const Viewcard = ({ open,course,onUpdate,onDelete,handleClose }) => {
     try {
       const token = localStorage.getItem("jwtToken");
       const response = await axios.put(
-        `https://localhost:5000/courses/${course.id}`,
+        `http://localhost:5000/courses/${course.id}`,
         courseDetails,
         {
           headers: {
@@ -57,7 +57,7 @@ const Viewcard = ({ open,course,onUpdate,onDelete,handleClose }) => {
   const handleDelete = async () => {
     try {
       const token = localStorage.getItem("jwtToken");
-      await axios.delete(`https://localhost:5000/courses/${course.id}`, {
+      await axios.delete(`http://localhost:5000/courses/${course.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

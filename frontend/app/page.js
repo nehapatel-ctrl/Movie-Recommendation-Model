@@ -17,7 +17,7 @@ export default function Home() {
   
   const [courses, setCourses] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState(null);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -45,6 +45,19 @@ export default function Home() {
     setCourses([...courses, newCourse]);
   };
 
+  useEffect(() => {
+    const fetchCourses =  () => {
+      try {
+        const response = axios.get('http://localhost:5000/courses');
+        setCourses(response.data);
+      } catch (error) {
+        console.error("Error fetching courses:", error);
+        alert("Failed to fetch courses. Please try again.");
+      }
+    };
+
+    fetchCourses();
+  }, []);
  
   
   
@@ -54,18 +67,15 @@ export default function Home() {
     <>
        <Nav />
        <div >
-      <Box sx={{ p: 3 }}>
-        <Grid container spacing={3}>
-          {courses.map((course) => (
-            <Grid item xs={12} sm={6} md={4} key={course.id}>
-              <MyCard course={course} onClick={() => handleViewCourse(course)} />
-            </Grid>
-          ))}
-        </Grid>
+       <Box sx={{ p: 3 }}>
+       {courses && courses.length > 0 ? ( 
+        courses.map((course) => ( 
+        <Grid item xs={12} sm={6} md={4} key={course.id}> 
+        <MyCard course={course} onClick={() => handleViewCourse(course)} /> </Grid> )) ) : ( <p>No courses available</p> )}
       </Box>
       </div>
         
-        <React.Fragment>
+    <React.Fragment>
       <Button style={{marginLeft: 1300,marginTop: -30}} variant="outlined" onClick={handleClickOpen}>
         Add Course
       </Button>

@@ -24,14 +24,14 @@ export default function Login(){
           event.preventDefault();
           const data = new FormData(event.currentTarget);
       
-          const userDetails = {
+          const loginDetails = {
             username: data.get("username"),
             password: data.get("password"),
           };
       
           try {
             // Make an API call to the login endpoint
-            const response = await axios.post("https://localhost:5000/auth/login", loginDetails);
+            const response = await axios.post("http://localhost:5000/auth/login", loginDetails);
       
             if (response.status === 200) {
               const { token } = response.data;
@@ -53,7 +53,7 @@ export default function Login(){
         
         <div className="box" style={{zIndex:"1000",border:'1px solid black',width:'450px',height:'500px',display:'grid',placeItems:'center',backgroundColor:'white'}} onClick={(e) => e.stopPropagation()}>
             <h1 style={{marginBottom:'20px',display:'flex',justifyContent:'center',marginTop:'40px',color:'black'}}>Login</h1>
-            <form style={{width:'400px',height:'500px',color:'black'}}>
+            <form style={{width:'400px',height:'500px',color:'black'}} onSubmit={handleSubmit}>
                 <Grid container spacing={6}>
                    <Grid  item xs={12}>
                     <TextField 
