@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -7,7 +7,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { Grid } from '@material-ui/core';
-
+import axios from 'axios';
 
 
 const Viewcard = ({ open,course,onUpdate,onDelete,handleClose }) => {
@@ -22,11 +22,11 @@ const Viewcard = ({ open,course,onUpdate,onDelete,handleClose }) => {
   useEffect(() => {
     if (course) {
       setValues({
-        name: course.name,
-        code: course.code,
-        Credits: course.Credits,
-        Description: course.Description,
-        Imageurl: course.Imageurl,
+        name: course.coursename,
+        code: course.coursecode,
+        Credits: course.credits,
+        Description: course.description,
+        Imageurl: course.image,
       });
     }
   }, [course]);
@@ -81,7 +81,7 @@ const Viewcard = ({ open,course,onUpdate,onDelete,handleClose }) => {
       <DialogTitle>Add Course</DialogTitle>
       <DialogContent>
         
-        <form onSubmit={handleSubmit}>
+        <form >
         <Grid container spacing={4} style={{marginTop:'10px'}}>
                         <Grid item xs={12} >
                             <TextField 

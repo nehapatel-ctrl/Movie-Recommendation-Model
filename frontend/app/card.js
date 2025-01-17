@@ -16,21 +16,21 @@ const MyCard = ({course,onClick}) => {
           <CardMedia
             component="img"
             height="140"
-            image={image}
-            alt={Name}
+            image={course.image}
+            
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              {course.Name}
+              {course.coursename}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {course.Code}
+              {course.coursecode}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {course.Credits}
+              {course.credits}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {course.Description}
+              {course.description}
             </Typography>
           </CardContent>
 
