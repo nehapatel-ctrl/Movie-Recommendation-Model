@@ -1,5 +1,5 @@
 'use client'
-import React, { useState ,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -9,35 +9,39 @@ import TextField from '@mui/material/TextField';
 import { Grid } from '@material-ui/core';
 import axios from 'axios';
 
+const Viewcard = ({ open, course, onUpdate, onDelete, onClose }) => {
+  const [values, setValues] = useState({
+    name: '',
+    code: '',
+    credits: '',
+    description: '',
+    imageUrl: '',
+  });
 
-const Viewcard = ({ open,course,onUpdate,onDelete,handleClose }) => {
-  
-  const [values, setValues] = useState({ 
-    name: '', 
-    Code: '', 
-    Credits: '',
-    Description: '',
-    Imageurl: '',
-  }); 
   useEffect(() => {
     if (course) {
       setValues({
         name: course.coursename,
         code: course.coursecode,
-        Credits: course.credits,
-        Description: course.description,
-        Imageurl: course.image,
+        credits: course.credits,
+        description: course.description,
+        imageUrl: course.image,
       });
     }
   }, [course]);
-  const handleChange = (e) => { const { name, value } = e.target; setValues({ ...values, [name]: value, }); };
- 
-  const handleUpdate = async () => {
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setValues({ ...values, [name]: value });
+  };
+
+  const handleUpdate = async (event) => {
+    event.preventDefault(); // Prevent default form submission
     try {
       const token = localStorage.getItem("jwtToken");
       const response = await axios.put(
         `http://localhost:5000/courses/${course.id}`,
-        courseDetails,
+        values, // Use values instead of courseDetails
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -47,7 +51,7 @@ const Viewcard = ({ open,course,onUpdate,onDelete,handleClose }) => {
       alert("Course updated successfully");
       console.log("Course updated:", response.data);
       onUpdate(course.id, response.data);
-      onClose();
+      handleClose(); // Use handleClose instead of onClose
     } catch (error) {
       alert("Failed to update course.\nLogin if you haven't already.");
       console.error("Error updating course:", error.response ? error.response.data : error.message);
@@ -65,81 +69,80 @@ const Viewcard = ({ open,course,onUpdate,onDelete,handleClose }) => {
       alert("Course deleted successfully");
       console.log("Course deleted");
       onDelete(course.id);
-      onClose();
+      handleClose(); // Use handleClose instead of onClose
     } catch (error) {
       alert("Failed to delete course.\nLogin if you haven't already.");
       console.error("Error deleting course:", error.response ? error.response.data : error.message);
     }
   };
 
-  
-   
-  
-
   return (
-    <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Add Course</DialogTitle>
+    <Dialog open={open} onClose={onClose}>
+      <DialogTitle>Edit Course</DialogTitle> {/* Changed title for clarity */}
       <DialogContent>
-        
-        <form >
-        <Grid container spacing={4} style={{marginTop:'10px'}}>
-                        <Grid item xs={12} >
-                            <TextField 
-                            label="Full Name*" 
-                            variant="outlined"
-                             fullWidth 
-                             name="name"
-                             type="text" 
-                             value={values.name} 
-                             onChange={handleChange} />
-                        </Grid>
-                        <Grid item xs={12} >
-                            <TextField 
-                            label="Course Code*" 
-                            variant="outlined"
-                             fullWidth 
-                             name="Code"
-                             type="text"  
-                             value={values.Code} 
-                             onChange={handleChange} />
-                        </Grid>
-                        <Grid item xs={12} >
-                            <TextField 
-                            label="credits*" 
-                            variant="outlined"
-                             fullWidth 
-                             type="number" 
-                             name="Credits" 
-                             value={values.Credits} 
-                             onChange={handleChange} />
-                        </Grid>
-                        <Grid item xs={12} >
-                            <TextField 
-                            label="Description" 
-                            variant="outlined"
-                             fullWidth
-                             multiline
-                             rows={3}
-                             type="text" 
-                            name="Description" 
-                            value={values.Description} 
-                            onChange={handleChange} />
-                        </Grid>
-                        <Grid item xs={12} >
-                            <TextField 
-                            label="Image Url" 
-                            variant="outlined"
-                             fullWidth
-                              name="Imageurl" 
-                             value={values.Imageurl}
-                             type="text" 
-                             onChange={handleChange} />
-                        </Grid>
-           
-                   </Grid>
+        <form>
+          <Grid container spacing={4} style={{ marginTop: '10px' }}>
+            <Grid item xs={12}>
+              <TextField
+                label="Full Name*"
+                variant="outlined"
+                fullWidth
+                name="name"
+                type="text"
+                value={values.name}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Course Code*"
+                variant="outlined"
+                fullWidth
+                name="code" // Changed to lowercase
+                type="text"
+                value={values.code} // Changed to lowercase
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Credits*"
+                variant="outlined"
+                fullWidth
+                type="number"
+                name="credits" // Changed to lowercase
+                value={values.credits} // Changed to lowercase
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Description"
+                variant="outlined"
+                fullWidth
+                multiline
+                rows={3}
+                type="text"
+                name="description" // Changed to lowercase
+                value={values.description} // Changed to lowercase
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Image URL"
+                variant="outlined"
+                fullWidth
+                name="imageUrl" // Changed to lowercase
+                value={values.imageUrl} // Changed to lowercase
+                type="text"
+                onChange={handleChange}
+              />
+            </Grid>
+          </Grid>
           <DialogActions>
             <Button onClick={handleUpdate} color="primary" variant="contained">Update</Button>
-            <Button  onClick={handleDelete} color="secondary" variant="contained" >Delete</Button>
+            <Button onClick={handleDelete} color="secondary" variant="contained">Delete</Button>
           </DialogActions>
         </form>
       </DialogContent>

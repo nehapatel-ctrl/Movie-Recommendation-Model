@@ -24,10 +24,10 @@ const MyCard = ({course,onClick}) => {
               {course.coursename}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {course.coursecode}
+              Code:{course.coursecode}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {course.credits}
+              Credits:{course.credits}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               {course.description}
