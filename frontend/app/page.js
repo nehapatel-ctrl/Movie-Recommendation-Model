@@ -173,7 +173,7 @@ export default function Home() {
       >
         Add Course
       </Button>
-      <DialogForm open={open} onClose={handleClose} onSuccess={handleAddCourseSuccess} course={selectedCourse}/>
+      <DialogForm open={open} course={selectedCourse} onClose={handleClose} onSuccess={handleAddCourseSuccess} />
       {selectedCourse && (
         <Viewcard
           open={Boolean(selectedCourse)}

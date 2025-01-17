@@ -6,10 +6,10 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core'; 
 import axios from 'axios';
 
-const  DialogForm = ({ open, onClose,onSuccess }) => {
+const DialogForm = ({ open, course, onClose, onSuccess }) => {
   const [values, setValues] = useState({
     name: '',
     code: '',
@@ -18,20 +18,32 @@ const  DialogForm = ({ open, onClose,onSuccess }) => {
     imageUrl: '',
   });
 
-  
+  useEffect(() => {
+    if (course) {
+      setValues({
+        name: course.coursename,
+        code: course.coursecode,
+        credits: course.credits,
+        description: course.description,
+        imageUrl: course.image,
+      });
+    }
+  }, [course]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
   };
-  const handleSubmit = async () => {
+
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // Prevent default form submission
     try {
       const token = localStorage.getItem("jwtToken");
       console.log("Token:", token);
       console.log("Course Details:", values);
 
       const response = await axios.post(
-        "http://localhost:5000/courses",
+        " http://localhost:5000/courses",
         values,
         {
           headers: {
@@ -46,24 +58,20 @@ const  DialogForm = ({ open, onClose,onSuccess }) => {
     } catch (error) {
       alert("Failed to add course.\nLogin if you haven't already.");
       if (error.response) {
-       
         console.error("Error adding course:", error.response.data);
       } else if (error.request) {
-        
         console.error("Error adding course: No response received", error.request);
       } else {
-        
         console.error("Error adding course:", error.message);
       }
     }
   };
 
-  
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Add Course</DialogTitle> 
+      <DialogTitle>Add Course</DialogTitle>
       <DialogContent>
-        <form>
+        <form onSubmit={handleSubmit}>
           <Grid container spacing={4} style={{ marginTop: '10px' }}>
             <Grid item xs={12}>
               <TextField
@@ -81,9 +89,9 @@ const  DialogForm = ({ open, onClose,onSuccess }) => {
                 label="Course Code*"
                 variant="outlined"
                 fullWidth
-                name="code" 
+                name="code"
                 type="text"
-                value={values.code} 
+                value={values.code}
                 onChange={handleChange}
               />
             </Grid>
@@ -93,8 +101,8 @@ const  DialogForm = ({ open, onClose,onSuccess }) => {
                 variant="outlined"
                 fullWidth
                 type="number"
-                name="credits" 
-                value={values.credits} 
+                name="credits"
+                value={values.credits}
                 onChange={handleChange}
               />
             </Grid>
@@ -106,8 +114,8 @@ const  DialogForm = ({ open, onClose,onSuccess }) => {
                 multiline
                 rows={3}
                 type="text"
-                name="description" 
-                value={values.description} 
+                name="description"
+                value={values.description}
                 onChange={handleChange}
               />
             </Grid>
@@ -116,21 +124,20 @@ const  DialogForm = ({ open, onClose,onSuccess }) => {
                 label="Image URL"
                 variant="outlined"
                 fullWidth
-                name="imageUrl" 
-                value={values.imageUrl} 
-                type="text"
+                name="imageUrl"
+                value={values.imageUrl}
                 onChange={handleChange}
               />
             </Grid>
           </Grid>
           <DialogActions>
-          <Button type="submit" onClick={handleSubmit}>Submit</Button>
-          </DialogActions>
+            
+            <Button type="submit" onClick={handleSubmit}>Submit</Button>
+            </DialogActions>
         </form>
       </DialogContent>
     </Dialog>
   );
 };
 
-export default  DialogForm;
-
+export default DialogForm;           
