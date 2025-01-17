@@ -1,6 +1,5 @@
-// src/DialogForm.js
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -8,11 +7,23 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { Grid } from '@material-ui/core';
+import axios from 'axios';
 
+const  DialogForm = ({ open, onClose,onSuccess }) => {
+  const [values, setValues] = useState({
+    name: '',
+    code: '',
+    credits: '',
+    description: '',
+    imageUrl: '',
+  });
 
+  
 
-const DialogForm = ({ open, handleClose,onSuccess}) => {
-   
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setValues({ ...values, [name]: value });
+  };
   const handleSubmit = async () => {
     try {
       const token = localStorage.getItem("jwtToken");
@@ -20,7 +31,7 @@ const DialogForm = ({ open, handleClose,onSuccess}) => {
       console.log("Course Details:", values);
 
       const response = await axios.post(
-        "https://localhost:5000/courses",
+        "http://localhost:5000/courses",
         values,
         {
           headers: {
@@ -48,80 +59,72 @@ const DialogForm = ({ open, handleClose,onSuccess}) => {
   };
 
   
-   
-  const [values, setValues] = useState({ 
-    name: '', 
-    Code: '', 
-    Credits: '',
-    Description: '',
-    Imageurl: '',
-  }); 
-  const handleChange = (e) => { const { name, value } = e.target; setValues({ ...values, [name]: value, }); };
-
   return (
-    <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Add Course</DialogTitle>
+    <Dialog open={open} onClose={onClose}>
+      <DialogTitle>Add Course</DialogTitle> 
       <DialogContent>
-        
-        <form onSubmit={handleSubmit}>
-        <Grid container spacing={4} style={{marginTop:'10px'}}>
-                        <Grid item xs={12} >
-                            <TextField 
-                            label="Full Name*" 
-                            variant="outlined"
-                             fullWidth 
-                             name="name"
-                             type="text" 
-                             value={values.name} 
-                             onChange={handleChange} />
-                        </Grid>
-                        <Grid item xs={12} >
-                            <TextField 
-                            label="Course Code*" 
-                            variant="outlined"
-                             fullWidth 
-                             name="Code"
-                             type="text"  
-                             value={values.Code} 
-                             onChange={handleChange} />
-                        </Grid>
-                        <Grid item xs={12} >
-                            <TextField 
-                            label="credits*" 
-                            variant="outlined"
-                             fullWidth 
-                             type="number" 
-                             name="Credits" 
-                             value={values.Credits} 
-                             onChange={handleChange} />
-                        </Grid>
-                        <Grid item xs={12} >
-                            <TextField 
-                            label="Description" 
-                            variant="outlined"
-                             fullWidth
-                             multiline
-                             rows={3}
-                             type="text" 
-                            name="Description" 
-                            value={values.Description} 
-                            onChange={handleChange} />
-                        </Grid>
-                        <Grid item xs={12} >
-                            <TextField 
-                            label="Image Url" 
-                            variant="outlined"
-                             fullWidth
-                              name="Imageurl" 
-                             value={values.Imageurl}
-                             type="text" 
-                             onChange={handleChange} />
-                        </Grid>
-           
-                   </Grid>
+        <form>
+          <Grid container spacing={4} style={{ marginTop: '10px' }}>
+            <Grid item xs={12}>
+              <TextField
+                label="Full Name*"
+                variant="outlined"
+                fullWidth
+                name="name"
+                type="text"
+                value={values.name}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Course Code*"
+                variant="outlined"
+                fullWidth
+                name="code" 
+                type="text"
+                value={values.code} 
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Credits*"
+                variant="outlined"
+                fullWidth
+                type="number"
+                name="credits" 
+                value={values.credits} 
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Description"
+                variant="outlined"
+                fullWidth
+                multiline
+                rows={3}
+                type="text"
+                name="description" 
+                value={values.description} 
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Image URL"
+                variant="outlined"
+                fullWidth
+                name="imageUrl" 
+                value={values.imageUrl} 
+                type="text"
+                onChange={handleChange}
+              />
+            </Grid>
+          </Grid>
           <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button type="submit" onClick={handleSubmit}>Submit</Button>
+          <Button type="submit" onClick={handleSubmit}>Submit</Button>
           </DialogActions>
         </form>
       </DialogContent>
@@ -129,4 +132,5 @@ const DialogForm = ({ open, handleClose,onSuccess}) => {
   );
 };
 
-export default DialogForm;
+export default  DialogForm;
+

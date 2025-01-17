@@ -164,6 +164,7 @@ export default function Home() {
             <p>No courses available</p>
           )}
         </Grid>
+        
       </Box>
       <Button
         sx={{ position: 'absolute', right: 20 }}
@@ -172,7 +173,7 @@ export default function Home() {
       >
         Add Course
       </Button>
-      <DialogForm open={open} handleClose={handleClose} onSuccess={handleAddCourseSuccess} />
+      <DialogForm open={open} onClose={handleClose} onSuccess={handleAddCourseSuccess} course={selectedCourse}/>
       {selectedCourse && (
         <Viewcard
           open={Boolean(selectedCourse)}

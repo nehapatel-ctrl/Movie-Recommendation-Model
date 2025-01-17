@@ -51,7 +51,7 @@ const Viewcard = ({ open, course, onUpdate, onDelete, onClose }) => {
       alert("Course updated successfully");
       console.log("Course updated:", response.data);
       onUpdate(course.id, response.data);
-      handleClose(); // Use handleClose instead of onClose
+      onClose(); // Use handleClose instead of onClose
     } catch (error) {
       alert("Failed to update course.\nLogin if you haven't already.");
       console.error("Error updating course:", error.response ? error.response.data : error.message);
@@ -69,7 +69,7 @@ const Viewcard = ({ open, course, onUpdate, onDelete, onClose }) => {
       alert("Course deleted successfully");
       console.log("Course deleted");
       onDelete(course.id);
-      handleClose(); // Use handleClose instead of onClose
+      onClose(); // Use handleClose instead of onClose
     } catch (error) {
       alert("Failed to delete course.\nLogin if you haven't already.");
       console.error("Error deleting course:", error.response ? error.response.data : error.message);
