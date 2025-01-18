@@ -36,12 +36,12 @@ const Viewcard = ({ open, course, onUpdate, onDelete, onClose }) => {
   };
 
   const handleUpdate = async (event) => {
-    event.preventDefault(); // Prevent default form submission
+    event.preventDefault(); 
     try {
       const token = localStorage.getItem("jwtToken");
       const response = await axios.put(
         `http://localhost:5000/courses/${course.id}`,
-        values, // Use values instead of courseDetails
+        values, 
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -50,7 +50,7 @@ const Viewcard = ({ open, course, onUpdate, onDelete, onClose }) => {
       );
       alert("Course updated successfully");
       console.log("Course updated:", response.data);
-      onUpdate(course.id, response.data);
+      onUpdate(response.data);
       onClose(); // Use handleClose instead of onClose
     } catch (error) {
       alert("Failed to update course.\nLogin if you haven't already.");

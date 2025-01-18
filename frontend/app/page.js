@@ -153,19 +153,15 @@ export default function Home() {
     <>
       <Nav />
       <Box sx={{ p: 3 }}>
-        <Grid container spacing={3}>
-          {courses && courses.length > 0 ? (
-            courses.map((course) => (
-              <Grid item xs={12} sm={6} md={4} key={course.id}>
-                <MyCard course={course} onClick={() => handleViewCourse(course)} />
-              </Grid>
-            ))
-          ) : (
-            <p>No courses available</p>
-          )}
+      <Grid container spacing={3}>
+          {courses.map((course) => (
+            <Grid item xs={12} sm={6} md={4} key={course.id}>
+              <MyCard course={course} onClick={() => handleViewCourse(course)} />
+            </Grid>
+          ))}
         </Grid>
         
-      </Box>
+      
       <Button
         sx={{ position: 'absolute', right: 20 }}
         variant="outlined"
@@ -173,7 +169,8 @@ export default function Home() {
       >
         Add Course
       </Button>
-      <DialogForm open={open} course={selectedCourse} onClose={handleClose} onSuccess={handleAddCourseSuccess} />
+      
+      <DialogForm open={open}  onClose={handleClose} onSuccess={handleAddCourseSuccess} />
       {selectedCourse && (
         <Viewcard
           open={Boolean(selectedCourse)}
@@ -183,6 +180,7 @@ export default function Home() {
           onDelete={handleDeleteCourse}
         />
       )}
+      </Box>
     </>
   );
 }
