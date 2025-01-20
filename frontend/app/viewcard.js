@@ -37,8 +37,16 @@ const Viewcard = ({ open, course, onUpdate, onDelete, onClose }) => {
 
   const handleUpdate = async (event) => {
     event.preventDefault(); 
+  
+    // Basic validation
+    if (!values.name || !values.code || !values.credits) {
+      alert("Please fill in all required fields.");
+      return;
+    }
+  
     try {
       const token = localStorage.getItem("jwtToken");
+      console.log("Updating course with values:", values); // Log values being sent
       const response = await axios.put(
         `http://localhost:5000/courses/${course.id}`,
         values, 
@@ -57,7 +65,6 @@ const Viewcard = ({ open, course, onUpdate, onDelete, onClose }) => {
       console.error("Error updating course:", error.response ? error.response.data : error.message);
     }
   };
-
   const handleDelete = async () => {
     try {
       const token = localStorage.getItem("jwtToken");

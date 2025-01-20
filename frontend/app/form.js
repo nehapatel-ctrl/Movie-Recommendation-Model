@@ -142,7 +142,7 @@ const DialogForm = ({ open, course, onClose, onSuccess }) => {
 
 export default DialogForm;           */
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -161,22 +161,20 @@ const DialogForm = ({ open, onClose, onSuccess }) => {
     imageUrl: '',
   });
 
-  
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
   };
 
   const handleSubmit = async (event) => {
-     
+    event.preventDefault(); // Prevent default form submission behavior
+
     if (!values.name || !values.code || !values.credits) {
       alert("Please fill in all required fields.");
       return;
     }
 
     try {
-      
       const token = localStorage.getItem("jwtToken");
       const response = await axios.post(
         `http://localhost:5000/courses`,
@@ -190,7 +188,7 @@ const DialogForm = ({ open, onClose, onSuccess }) => {
       alert("Course added successfully");
       console.log("Course added:", response.data);
       onSuccess(response.data);
-      onClose(); // Use handleClose instead of onClose
+      onClose(); // Close the dialog
     } catch (error) {
       alert("Failed to add course. Please check your input and try again.");
       if (error.response) {
@@ -207,7 +205,7 @@ const DialogForm = ({ open, onClose, onSuccess }) => {
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Add Course</DialogTitle>
       <DialogContent>
-        
+        <form onSubmit={handleSubmit}> {/* Wrap inputs in a form */}
           <Grid container spacing={4} style={{ marginTop: '10px' }}>
             <Grid item xs={12}>
               <TextField
@@ -269,10 +267,10 @@ const DialogForm = ({ open, onClose, onSuccess }) => {
               />
             </Grid>
           </Grid>
-          
-            <Button type="submit" onClick={handleSubmit}>Submit</Button>
-          
-       
+          <Button type="submit" color="primary" variant="contained" style={{ marginTop: '20px' }}>
+            Submit
+          </Button> {/* Button type is submit */}
+        </form>
       </DialogContent>
     </Dialog>
   );
