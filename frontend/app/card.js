@@ -17,7 +17,7 @@ const MyCard = ({course,onClick}) => {
             component="img"
             height="140"
             image={course.image}
-            
+            alt={course.coursename}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">

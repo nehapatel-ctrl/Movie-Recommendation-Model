@@ -76,7 +76,7 @@ const Viewcard = ({ open, course, onUpdate, onDelete, onClose }) => {
       alert("Course deleted successfully");
       console.log("Course deleted");
       onDelete(course.id);
-      onClose(); // Use handleClose instead of onClose
+      onClose();
     } catch (error) {
       alert("Failed to delete course.\nLogin if you haven't already.");
       console.error("Error deleting course:", error.response ? error.response.data : error.message);
@@ -85,7 +85,7 @@ const Viewcard = ({ open, course, onUpdate, onDelete, onClose }) => {
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Edit Course</DialogTitle> {/* Changed title for clarity */}
+      <DialogTitle>Edit Course</DialogTitle> 
       <DialogContent>
         <form>
           <Grid container spacing={4} style={{ marginTop: '10px' }}>

@@ -153,13 +153,13 @@ export default function Home() {
     <>
       <Nav />
       <Box sx={{ p: 3 }}>
-      <Grid container spacing={3}>
-  {courses.map((course) => (
-    <Grid item xs={12} sm={6} md={4} key={course.id || course.code}>
-      <MyCard course={course} onClick={() => handleViewCourse(course)} />
+      <Grid container spacing={3}  >
+       {courses.map((course) => (
+      <Grid item xs={12} sm={6} md={4} key={course.id}>
+       <MyCard course={course} onClick={() => handleViewCourse(course)} />
     </Grid>
   ))}
-</Grid>
+  </Grid>
         
       
       <Button
