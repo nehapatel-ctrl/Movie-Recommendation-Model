@@ -43,9 +43,11 @@ export default function Nav(){
               Course Helper
             </Typography>
             {isLoggedIn ? (
+              <Avatar src="/broken-image.jpg" />
               <Button color="inherit" onClick={handleLogOut}>
               Log Out
-            </Button>// Display avatar when logged in
+            </Button>
+            
           ) : (
             <Button color="inherit" onClick={() => router.push("/login")}>
               Log In
