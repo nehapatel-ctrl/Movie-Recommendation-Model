@@ -43,7 +43,8 @@ export default function Nav(){
               Course Helper
             </Typography>
             {isLoggedIn ? (
-              <Avatar src="/broken-image.jpg" />
+              
+              
               <Button color="inherit" onClick={handleLogOut}>
               Log Out
             </Button>
